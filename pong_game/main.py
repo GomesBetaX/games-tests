@@ -1,86 +1,73 @@
+import time
+from score_board import Scoreboard
 from turtle import Turtle, Screen
 from paddle import Paddle
-from dash import Dash
 from ball import Ball
-from score_board import Scoreboard
-import time
+from dash import Dash
 
-# Screen settings
+SCREEN_SIZE = (800, 600)
+UP = 90
+DOWN = 270
+
+# screen setup
 screen = Screen()
-screen.setup(width=800, height=600)
-screen.title("Pong Game")
 screen.bgcolor("black")
-
-# refresh rate
+screen.setup(SCREEN_SIZE[0], SCREEN_SIZE[1])
+screen.title("Pong Game")
 screen.tracer(0)
 screen.listen()
 
-# create Paddle
-pad_pc = Paddle("PC")
-pad_user = Paddle("USER")
+# players
+c1 = Paddle("LEFT")
+c2 = Paddle("RIGHT")
 
-# create score
-score = Scoreboard()
-
-# create ball
+# ball
 b = Ball()
 
-# create line
+#score
+score = Scoreboard()
+
+#dash line
 d = Dash()
 d.draw_dash()
 
-# movements
-screen.onkeypress(pad_user.up, "Up")
-screen.onkeypress(pad_user.down, "Down")
+# commands player_left
+screen.onkeypress(c2.up, "Up")
+screen.onkeypress(c2.down, "Down")
 
+# commands player_right
+screen.onkeypress(c1.up, "w")
+screen.onkeypress(c1.down, "s")
 
-# game settings
-while True:
+# game working
+game_on = True
+while game_on:
     screen.update()
-    time.sleep(0.05)  # 10 FPS  
+    time.sleep(0.05)
 
-    # write score
     score.update_score()
 
-    # pc_pc_moving
-    pad_pc.move() 
+    #moving ball
     b.move()
-    
 
-    # detect pc_paddle collision with wall
-    for pad in pad_pc.paddle:
-        if pad.ycor() >= 270 or pad.ycor() <= -270:
-            if pad.ycor() >= 250:
-                pad.setheading(270)
-            elif pad.ycor() <= -250:
-                pad.setheading(90)
+    #collision with wall
+    if b.ycor() >= 280 or b.ycor() <= -280:
+        b.bounce()
 
-    # detect ball collision with wall
-    bxcor = b.xcor()
-    bycor = b.ycor()
-    
-    if bxcor >= 390 or bxcor <= -390:
-        if bxcor > 0:
+    #collision with vertical walls
+    if b.xcor() > 380 or b.xcor() < -380:
+        if b.xcor() > 0:
             score.add_score("USER")
-            b.reset_ball()
-            time.sleep(0.5)
         else:
             score.add_score("PC")
-            b.reset_ball()
-            time.sleep(0.5)
-        # b.reset_heading("horizontal")
-    
-    if bycor >= 290 or bycor <= -290:
-        b.reset_heading("vertical")
+        b.reset()
 
-    # detect ball collision with paddle_PC
-    for pad in pad_pc.paddle:
-        if pad.distance(b) <= 10:
-            b.reset_heading("horizontal")
-    
-    # detect ball collision with user_paddle
-    for pad in pad_user.paddle:
-        if pad.distance(b) <= 10:
-            b.reset_heading("horizontal")
+    #collision with paddle
+    collision_c1 = -350 < b.xcor() < -330 and c1.ycor() + 50 > b.ycor() > c1.ycor() - 50
+    collision_c2 = 330 < b.xcor() < 350 and c2.ycor() + 50 > b.ycor() > c2.ycor() - 50
+    if collision_c1 or collision_c2:
+        b.bounce_pad()
+
+
 
 screen.mainloop()
