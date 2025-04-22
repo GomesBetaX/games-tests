@@ -34,7 +34,7 @@ while game_on:
     car_manager.move_cars()
 
     # cars according to level
-    if c % 6 == 0:
+    if c % 3 == 0:
         car_manager.create_car()
 
     # check for collision with the cars
