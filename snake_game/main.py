@@ -15,7 +15,7 @@ s.bgcolor("black") #sets background color
 s.title("Snake Game") #sets window title
 
     # objects
-cobra = Snake(s)
+cobra = Snake()
 food = Food()
 score = Scoreboard()
 
@@ -53,7 +53,8 @@ while should_continue_game:
     for segment in cobra.segments[1:]:
         if cobra.segments[0].distance(segment) <= 10:
             score.game_over()
-            should_continue_game = False
+            cobra.reset()
+            # should_continue_game = False
 
     # detect collision with wall
     x = cobra.segments[0].xcor()
@@ -61,7 +62,8 @@ while should_continue_game:
     if ((x <= -300.05) or (x >= 298)) or ((y <= -290) or (y >= 300.001)):
         score.game_over()
         print("You hit a wall, therefore you lost.")
-        should_continue_game = False
+        cobra.reset()
+        # should_continue_game = False
 
 # exit when window is closed
 s.mainloop()

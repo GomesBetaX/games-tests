@@ -7,9 +7,10 @@ LEFT = 180
 RIGHT = 0
 
 class Snake():
-    def __init__(self, screen):
+    def __init__(self):
+        # self.screen = 
         self.segments = []
-        self.create_snake(screen)
+        self.create_snake()
         self.heading = 0
 
     # movements
@@ -43,7 +44,7 @@ class Snake():
         self.segments.append(new_square)
 
     # create the snake itself
-    def create_snake(self, screen):
+    def create_snake(self):
         for i in range(3):
             new_square = Turtle()
             new_square.shape("square")
@@ -51,7 +52,7 @@ class Snake():
             new_square.penup()
             new_square.goto(-20 * i, 0)
             self.segments.append(new_square)
-        screen.update()
+        # screen.update()
 
     # moves the snake continously
     def move(self):
@@ -64,3 +65,11 @@ class Snake():
         # moves snake forward
         self.segments[0].setheading(self.heading)
         self.segments[0].fd(20)
+    
+    # resets snake
+    def reset(self):
+        for segment in self.segments:
+            segment.goto(1000, 1000)
+        
+        self.segments.clear()
+        self.create_snake()
