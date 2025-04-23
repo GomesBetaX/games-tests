@@ -66,5 +66,6 @@ while should_continue_game:
         # should_continue_game = False
 
 # exit when window is closed
+
 s.mainloop()
 
