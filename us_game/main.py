@@ -25,7 +25,7 @@ total_states = data[data.columns[0]].count()
 states_list = data["state"]
 
 # show latest highscore
-turtle.textinput(title=f"Your highscore is: {sc.get_highschore()}", prompt="Press enter to start the game!")
+turtle.textinput(title=f"Your highscore is: {sc.get_highscore()}", prompt="Press enter to start the game!")
 
 # Lopp until game on is false
 game_on = True
