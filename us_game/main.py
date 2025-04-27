@@ -14,6 +14,9 @@ turtle.shape(IMAGE_PATH)
 
 data = pandas.read_csv("./us_game/50_states.csv")
 
+def get_mouse_click_coor(x,y):
+   print(x,y)
+screen.onscreenclick(get_mouse_click_coor)
 
 # closes screen when window is closed
 screen.mainloop()
