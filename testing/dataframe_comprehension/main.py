@@ -2,7 +2,7 @@ import pandas
 
 student_dict = {
     "student": ["Alex", "Beth", "Caroline", "Dave", "Eleanor", "Freddie"],
-    "score": [1, 2, 3, 4, 5, 6],
+    "score": [10, 20, 30, 40, 50, 60],
 }
 
 students_data_frame = pandas.DataFrame(student_dict)
