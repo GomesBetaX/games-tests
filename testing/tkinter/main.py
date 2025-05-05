@@ -8,7 +8,7 @@ window.minsize(600, 400)
 
 # Label
 my_label = tk.Label(text="This is a label", font=("Arial", 24, "italic"))
-my_label.pack() 
+my_label.grid(column=0, row=0)
 
 # way to change attribute of label
 my_label["text"] = "New Text"
@@ -22,10 +22,10 @@ def button_clicked(label, input_text):
     label.config(text=input_text.get())
 
 button = tk.Button(text="Click me", command=lambda: button_clicked(my_label, input))
-button.pack()
+button.grid(column=0, row=2)
 
 # Entry
 input = tk.Entry()
-input.pack()
+input.grid(column=0, row=1)
 
 window.mainloop()
