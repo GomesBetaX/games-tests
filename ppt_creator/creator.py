@@ -9,7 +9,7 @@ class GPT:
 
     def __init__(self):
         self.theme = ""
-        self.plan = self.fetch_lesson_plan(self.theme)
+
         # print("\n📘 PLANO FORMATADO:")
         # for k, v in self.plan.items():
         #     print(f"\n{k}\n{v}")

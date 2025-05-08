@@ -8,7 +8,10 @@ BG_COLOR = "#2E2E2E"
 FG_COLOR = "#FFFFFF"
 BTN_COLOR = "#007BFF"
 
+gpt = ct.GPT()
 
+def create_class():
+    gpt.theme = tema_entry.get("1.0")
 
 # create windo
 window = tk.Tk()
@@ -32,9 +35,8 @@ actv_entry = tk.Text(width=30, height=5)
 actv_entry.grid(column=0, row=4)
 
 # button
-create_btn = tk.Button(text="Criar slide", font=("Arial", 12, "bold"), width=20, bg=BTN_COLOR, fg=FG_COLOR, highlightthickness=0, borderwidth=0)
+create_btn = tk.Button(text="Criar slide", command=create_class,font=("Arial", 12, "bold"), width=20, bg=BTN_COLOR, fg=FG_COLOR, highlightthickness=0, borderwidth=0)
 create_btn.grid(column=0, row=5, pady=5)
-
 
 # loop
 window.mainloop()
