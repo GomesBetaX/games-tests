@@ -9,6 +9,7 @@ class GPT:
 
     def __init__(self):
         self.theme = ""
+        self.extra = ""
 
         # print("\n📘 PLANO FORMATADO:")
         # for k, v in self.plan.items():
@@ -17,26 +18,38 @@ class GPT:
     def remove_markdown(self, text):
         return re.sub(r'[*_`]', '', text).strip()
 
-    def fetch_lesson_plan(self, theme):
+    def fetch_lesson_plan(self):
+
+        prompt_wrap_up = (
+            "Crie 3 atividades de revisão no formato de perguntas com múltipla escolha. "
+            "Cada atividade deve ter: "
+            '"pergunta", "a", "b" e "correta" (que deve ser "a" ou "b"). '
+            "Retorne apenas a lista, como no exemplo: "
+            '[{"pergunta": "Eu ___ todos os dias.", "a": "estudo", "b": "durmo", "correta": "a"}]'
+        )
+
         prompt = (
             "Você é um professor com muita experiência, e precisa criar uma aula baseada no Bloom's Taxonomy e CRISP. "
-            f"Pegue o tema da aula: '{theme}', e crie a aula, categorizando as informações e atividades seguindo os títulos abaixo:\n"
+            f"Pegue o tema da aula: '{self.theme}' e informacoes adicionais '{self.extra}', e crie a aula, categorizando as informações e atividades seguindo os títulos abaixo:\n"
             "- warm up: uma atividade de listar algo baseado no tema\n"
-            "- question: uma pergunta a ser feita a outros 2 alunos sobre a lista montada anteriormente\n"
-            "- lead_in: algo a ser feito com a lista criada anteriormente\n"
+            "- question: uma pergunta que os alunos devem fazer entre si baseada no warm up\n"
+            "- lead in: uma atividade baseada na lista criada anteriormente\n"
+            "- example: um exemplo simples do lead in\n"
+            "- pair work: outra pergunta para os alunos praticarem juntos\n"
             "- page: número da página no livro\n"
-            "- production: algo a ser criado utilizando o tema/gramática\n"
-            "- wrap-up: três frases de review, com duas opções cada, baseadas no tema\n"
-            "- homework: dever de casa baseado no tema\n\n"
-            "Responda com os títulos e conteúdo direto. Mantenha o título EXATEMENTE como na chave. Sem explicações adicionais."
+            "- production: tarefa para os alunos produzirem com o tema/gramática\n"
+            "- example_production: um exemplo do production que criou anteriormente\n"
+            f"- wrap-up: {prompt_wrap_up}\n"
+            "- homework: dever de casa baseado no tema\n"
+            "Responda com os títulos e conteúdo direto. Escreva os títulos exatamente como pedi. Sem explicações adicionais."
         )
+
 
         payload = {
             "contents": [{"parts": [{"text": prompt}]}]
         }
 
         headers = {"Content-Type": "application/json"}
-
         response = requests.post(GEMINI_URL, json=payload, headers=headers)
         if response.status_code != 200:
             raise Exception(f"Erro ao chamar Gemini: {response.status_code} {response.text}")
@@ -47,14 +60,18 @@ class GPT:
 
     def parse_response_to_dict(self, text):
         keys = {
-            "warm_up:": ["warm up"],
-            "question:": ["question"],
-            "lead_in:": ["lead in"],
-            "page:": ["page"],
-            "production:": ["production"],
-            "wrap_up": ["wrap-up"],
-            "homework:": ["homework"]
+            "warm_up": ["warm up"],
+            "question": ["question"],
+            "lead_in": ["lead in"],
+            "example": ["example"],
+            "pair_work": ["pair work"],
+            "page": ["page"],
+            "production": ["production"],
+            "example_production": ["example_production"],
+            "wrap_up": ["wrap-up", "wrapup", "wrap_up"],
+            "homework": ["homework"]
         }
+
 
         result = {k: "" for k in keys}
         current_key = None
@@ -80,5 +97,5 @@ class GPT:
                 if current_key:
                     result[current_key] += "\n" + self.remove_markdown(original_line)
 
-        print(result)
+        # print(result)
         return result
