@@ -2,16 +2,26 @@ import comtypes.client
 import os
 import re
 import json
+import creator
+from tkinter import messagebox
 
 class Preencher():
     def __init__(self):
         self.template = None
+        self.skeleton = 0
 
+    def create_skeleton(self, nome, texto):
+        sket = creator.GPT()
+        text = sket.get_skeleton(texto)
+        print(text)
+        with open(f"{nome}.txt", "w") as file:
+            file.write(text)
 
     def limpar(self, texto):
         return texto.replace("(", "").replace(")", "").replace("\n", " ").strip()
     
     def preencher_template(self, classe, caminho_template=None, caminho_saida="aula_gerada.pptx"):
+
         # print(classe)
         caminho_template = self.template
 
@@ -72,15 +82,24 @@ class Preencher():
         # Tenta encontrar um nome único
         i = 1
         novo_nome = f"{base_name}{ext}"
+        txt_name = f"{base_name}"
         novo_caminho = os.path.join(directory, novo_nome)
         while os.path.exists(novo_caminho):
             novo_nome = f"{base_name}_{i}{ext}"
+            txt_name = f"{base_name}_{i}"
             novo_caminho = os.path.join(directory, novo_nome)
             i += 1
         print(f"✅ Slide gerado em: {caminho_saida}")
+
+        # criar skeleton
+        self.create_skeleton(txt_name, classe)
+
         presentation.SaveAs(novo_caminho)
         presentation.Close()
+        messagebox.askyesno(title="Confirmação", message="Gostaria de abrir o esqueleto da aula?")
         powerpoint.Quit()
+
+
 
     def parse_wrap_up(self, texto):
         """
@@ -91,7 +110,7 @@ class Preencher():
             match = re.search(r"\[\s*{.*?}\s*\]", texto, re.DOTALL)
             if match:
                 perguntas = json.loads(match.group(0))
-                print("Perguntas carregadas do JSON:", perguntas)
+                # print("Perguntas carregadas do JSON:", perguntas)
 
                 if len(perguntas) >= 3:
                     resultado["actv1"] = perguntas[0]["pergunta"]
@@ -110,6 +129,6 @@ class Preencher():
         except json.JSONDecodeError as e:
             print("❌ Erro ao decodificar o JSON do wrap-up:", e)
 
-        print("✅ Resultado do parse_wrap_up (corrigido):", resultado)
+        # print("✅ Resultado do parse_wrap_up (corrigido):", resultado)
         return resultado
 

@@ -1,5 +1,6 @@
 import requests
 import re
+from tkinter import messagebox
 
 # Gemini config
 GEMINI_API_KEY = "AIzaSyAwtSlrpGOJVTILUpQD6Zv5J_1VqdNhF6E"
@@ -10,11 +11,31 @@ class GPT:
     def __init__(self):
         self.theme = ""
         self.extra = ""
+        self.text = ""
 
         # print("\n📘 PLANO FORMATADO:")
         # for k, v in self.plan.items():
         #     print(f"\n{k}\n{v}")
 
+    def get_skeleton(self, original_response):
+        prompt = (
+            f"Você é um professor com muita experiência e acabou de gerar a seguinte aula: {original_response}\n"
+            "Agora, você precisa criar o esqueleto da aula, isto é, dentro das seguintes categorias, seguindo o mesmo plano de aula já criado(o que já existir) e inventando, de maneira coesa, o que faltar:\n"
+            "warm up, lead in, presentation, controlled exercise, less-controlled exercises, freer, production, wrap up, homework assignment."
+        )
+
+        payload = {
+            "contents": [{"parts": [{"text": prompt}]}]
+        }
+
+        headers = {"Content-Type": "application/json"}
+        response = requests.post(GEMINI_URL, json=payload, headers=headers)
+        if response.status_code != 200:
+            raise Exception(f"Erro ao chamar Gemini: {response.status_code} {response.text}")
+
+        response_text = response.json()["candidates"][0]["content"]["parts"][0]["text"]
+        return response_text
+    
     def remove_markdown(self, text):
         return re.sub(r'[*_`]', '', text).strip()
 
@@ -55,7 +76,8 @@ class GPT:
             raise Exception(f"Erro ao chamar Gemini: {response.status_code} {response.text}")
 
         response_text = response.json()["candidates"][0]["content"]["parts"][0]["text"]
-        print("🔍 RESPOSTA BRUTA DO GEMINI:\n", response_text)  # Veja como o modelo respondeu
+        self.text = response_text
+        # print("🔍 RESPOSTA BRUTA DO GEMINI:\n", response_text)  # Veja como o modelo respondeu
         return self.parse_response_to_dict(response_text)
 
     def parse_response_to_dict(self, text):
