@@ -5,15 +5,20 @@ import json
 
 class Preencher():
     def __init__(self):
-        pass
+        self.template = None
 
 
     def limpar(self, texto):
         return texto.replace("(", "").replace(")", "").replace("\n", " ").strip()
     
-    def preencher_template(self, classe, caminho_template="template.pptx", caminho_saida="aula_gerada.pptx"):
+    def preencher_template(self, classe, caminho_template=None, caminho_saida="aula_gerada.pptx"):
         # print(classe)
-        caminho_absoluto = os.path.abspath(caminho_template)
+        caminho_template = self.template
+
+        if caminho_template == None:
+            caminho_template = "template"
+
+        caminho_absoluto = os.path.abspath(f"{caminho_template}.pptx")
         if not os.path.exists(caminho_absoluto):
             raise FileNotFoundError(f"Arquivo de template não encontrado: {caminho_absoluto}")
 

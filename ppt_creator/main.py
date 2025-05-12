@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import creator as ct
 import slide
+import tkinter as tk
 
 # constantes
 TITLE_FONT = ("Roboto", 18, "bold")
@@ -12,6 +13,10 @@ BTN_COLOR = "#007BFF"
 gpt = ct.GPT()
 ppt = slide.Preencher()
 
+def get_color(selected_value):
+    ppt.template = selected_value.lower()
+    print(ppt.template)
+    
 classe = {}
 def create_class():
     global classe
@@ -49,7 +54,7 @@ actv_entry.grid(column=0, row=4)
 # Dropdown
 opcao = ctk.StringVar(value="Esquema de cores: ")  # valor inicial
 
-dropdown = ctk.CTkOptionMenu(window, variable=opcao, values=["Enérgico", "Calma", "Neutro"])
+dropdown = ctk.CTkOptionMenu(window, variable=opcao, values=["Energico", "Calma", "Neutro"], command=get_color)
 dropdown.grid(column=0, row=5, pady=10)
 
 # Button
