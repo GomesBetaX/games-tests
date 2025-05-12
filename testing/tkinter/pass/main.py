@@ -22,7 +22,7 @@ def generate_password():
     password_list = []
     # new_list = [NEW_ITEM_EXPRESSION for ITEM in LIST]
     password_list += [random.choice(ALPHABET) for i in range(nr_letters)]
-    password_list += [random.choice(CARACTERES_ESPECIAIS) for i in range(nr_symbols)]
+    password_list += [random.choice(CARACTERES_ESPECIAIS) for i in range(nr_numbers)]
     password_list += [random.choice(NUMEROS) for i in range(nr_symbols)]
     random.shuffle(password_list)
 
