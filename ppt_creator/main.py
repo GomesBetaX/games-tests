@@ -19,6 +19,8 @@ def informatica():
         dropdown.configure(state="normal")
     else:
         dropdown.configure(state="disabled")
+        ppt.template = "template_info"
+        print(ppt.template)
 
 def get_color(selected_value):
     ppt.template = selected_value.lower()

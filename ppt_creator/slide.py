@@ -25,7 +25,7 @@ class Preencher():
         # print(classe)
         caminho_template = self.template
 
-        if caminho_template == None:
+        if caminho_template == None or caminho_template == "neutro":
             caminho_template = "template"
 
         caminho_absoluto = os.path.abspath(f"{caminho_template}.pptx")
