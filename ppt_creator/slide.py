@@ -9,18 +9,19 @@ class Preencher():
     def __init__(self):
         self.template = None
         self.skeleton = 0
+        self.type_class = None
 
     def create_skeleton(self, nome, texto):
         sket = creator.GPT()
         text = sket.get_skeleton(texto)
-        print(text)
-        with open(f"{nome}.txt", "w") as file:
+        # print(text)
+        with open(f"aulas/{nome}.txt", "w") as file:
             file.write(text)
 
     def limpar(self, texto):
         return texto.replace("(", "").replace(")", "").replace("\n", " ").strip()
     
-    def preencher_template(self, classe, caminho_template=None, caminho_saida="aula_gerada.pptx"):
+    def preencher_template(self, classe, caminho_template=None, caminho_saida="aulas/aula_gerada.pptx"):
 
         # print(classe)
         caminho_template = self.template
@@ -89,14 +90,16 @@ class Preencher():
             txt_name = f"{base_name}_{i}"
             novo_caminho = os.path.join(directory, novo_nome)
             i += 1
-        print(f"✅ Slide gerado em: {caminho_saida}")
+        messagebox.showinfo(title="Confirmação", message=f"✅ Slide gerado em: {caminho_saida}")
 
         # criar skeleton
-        self.create_skeleton(txt_name, classe)
+        if not self.skeleton == 0:
+            print(f"aula criada: {classe}")
+            self.create_skeleton(txt_name, classe)
+            messagebox.showinfo(title="Confirmação", message=f"✅ Esqueleto da aula gerado em: {txt_name}.txt")
 
         presentation.SaveAs(novo_caminho)
         presentation.Close()
-        messagebox.askyesno(title="Confirmação", message="Gostaria de abrir o esqueleto da aula?")
         powerpoint.Quit()
 
 

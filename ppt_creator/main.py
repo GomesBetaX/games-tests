@@ -14,6 +14,10 @@ BTN_COLOR = "#007BFF"
 gpt = ct.GPT()
 ppt = slide.Preencher()
 
+def get_class_type(selected_value):
+    ppt.type_class = selected_value.lower()
+    print(ppt.type_class)
+
 def informatica():
     if check_info.get() == 0:
         dropdown.configure(state="normal")
@@ -27,7 +31,7 @@ def get_color(selected_value):
     print(ppt.template)
 
 def get_skeleton():
-    value = check.get(gpt.text)
+    value = check.get()
     ppt.skeleton = value
 
 classe = {}
@@ -70,19 +74,20 @@ actv_entry.grid(column=0, columnspan=3, row=4, sticky="ew")
 opcao = ctk.StringVar(value="Esquema de cores: ")  # valor inicial
 
 dropdown = ctk.CTkOptionMenu(window, variable=opcao, values=["Energico", "Calma", "Neutro"], command=get_color)
-dropdown.grid(column=0, row=5, pady=10)
+dropdown.grid(column=0, row=6, pady=10)
 
 # checkbox
 check = ctk.CTkCheckBox(window, text="Esqueleto da aula", bg_color=BG_COLOR, command=get_skeleton)
-check.grid(column=1, row=5)
+check.grid(column=1, row=6)
 
 # checkbox
 check_info = ctk.CTkCheckBox(window, text="Informática", bg_color=BG_COLOR, command=informatica)
-check_info.grid(column=2, row=5)
+check_info.grid(column=2, row=6)
+
 
 # Button
 create_btn = ctk.CTkButton(window, text="Criar slide", command=create_class, font=("Arial", 12, "bold"), width=20)
-create_btn.grid(column=0, columnspan=3, row=6, pady=5, sticky="ew")
+create_btn.grid(column=0, columnspan=3, row=7, pady=5, sticky="ew")
 
 # Loop
 window.mainloop()
