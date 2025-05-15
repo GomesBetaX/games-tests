@@ -84,7 +84,6 @@ check.grid(column=1, row=6)
 check_info = ctk.CTkCheckBox(window, text="Informática", bg_color=BG_COLOR, command=informatica)
 check_info.grid(column=2, row=6)
 
-
 # Button
 create_btn = ctk.CTkButton(window, text="Criar slide", command=create_class, font=("Arial", 12, "bold"), width=20)
 create_btn.grid(column=0, columnspan=3, row=7, pady=5, sticky="ew")
