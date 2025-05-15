@@ -76,8 +76,13 @@ opcao = ctk.StringVar(value="Esquema de cores: ")  # valor inicial
 dropdown = ctk.CTkOptionMenu(window, variable=opcao, values=["Energico", "Calma", "Neutro"], command=get_color)
 dropdown.grid(column=0, row=6, pady=10)
 
+opcao_aula = ctk.StringVar(value="Estilo de aula: ")  # valor inicial
+
+dropdown_aula = ctk.CTkOptionMenu(window, variable=opcao_aula, values=["Padrão", "Conversation"], command=get_color)
+dropdown_aula.grid(column=0, columnspan=3, row=7, pady=10, sticky="ew")
+
 # checkbox
-check = ctk.CTkCheckBox(window, text="Esqueleto da aula", bg_color=BG_COLOR, command=get_skeleton)
+check = ctk.CTkCheckBox(window, text="Esqueleto da aula", bg_color=BG_COLOR, command=get_class_type)
 check.grid(column=1, row=6)
 
 # checkbox
@@ -86,7 +91,7 @@ check_info.grid(column=2, row=6)
 
 # Button
 create_btn = ctk.CTkButton(window, text="Criar slide", command=create_class, font=("Arial", 12, "bold"), width=20)
-create_btn.grid(column=0, columnspan=3, row=7, pady=5, sticky="ew")
+create_btn.grid(column=0, columnspan=3, row=8, pady=5, sticky="ew")
 
 # Loop
 window.mainloop()

@@ -13,10 +13,6 @@ class GPT:
         self.extra = ""
         self.text = ""
 
-        # print("\n📘 PLANO FORMATADO:")
-        # for k, v in self.plan.items():
-        #     print(f"\n{k}\n{v}")
-
     def get_skeleton(self, original_response):
         prompt = (
             f"Você é um professor com muita experiência e acabou de gerar a seguinte aula: {original_response}\n"
