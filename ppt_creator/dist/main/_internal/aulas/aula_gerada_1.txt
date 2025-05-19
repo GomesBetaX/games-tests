@@ -1,0 +1,49 @@
+## Esqueleto da Aula: Design de Interfaces de Usuário (UI)
+
+**Objetivo:** Introduzir os conceitos básicos de design de UI, focando em usabilidade, simplicidade, eficiência e estética.  Os alunos serão capazes de identificar boas e más práticas de design e aplicar princípios básicos na criação de wireframes.
+
+**Materiais:**  Livro didático (páginas 125-130), papel, lápis/canetas, acesso à internet (opcional).
+
+**Warm-up (5 minutos):**
+
+* **Atividade:** Liste 5 exemplos de interfaces de usuário (UI) que você utiliza diariamente.  (Ex: aplicativo de mensagens, navegador web, aplicativo de música, etc.)
+
+**Lead-in (10 minutos):**
+
+* **Discussão:** Como a usabilidade de cada UI da lista afeta sua experiência?  (Facilidade de navegação, clareza, velocidade, etc.)  Quais são as suas primeiras impressões sobre cada uma delas? Quais emoções elas geram?
+
+**Presentation (15 minutos):**
+
+* **Conceitos-chave:** Introdução aos princípios de design de UI: simplicidade, eficiência e estética.  Explicação de como esses princípios se inter-relacionam e contribuem para uma boa experiência do usuário (UX).  Apresentação de exemplos de boas e más práticas, utilizando imagens e/ou vídeos.  Apresentação de um exemplo prático de wireframe (já fornecido no plano de aula original).
+
+**Controlled Exercise (15 minutos):**
+
+* **Atividade:** Classifique as UIs listadas no "warm-up" em termos de simplicidade, eficiência e estética.  Discuta os critérios usados na classificação em pequenos grupos.  Compartilhamento das classificações e justificativas com a turma.
+
+**Less-Controlled Exercises (15 minutos):**
+
+* **Atividade em pares:** Crie um cenário de uma má UI e como ela poderia ser melhorada, usando os critérios de simplicidade, eficiência e estética. Apresentação de alguns cenários criados pelos alunos.
+
+**Freer (10 minutos):** - *Esta seção foi adicionada para dar mais flexibilidade à aula.*
+
+* **Brainstorming:** Discussão aberta sobre desafios comuns em design de UI e possíveis soluções.  Esta seção serve como ponte entre a teoria e a prática, permitindo que os alunos explorem ideias e questionamentos.
+
+
+**Production (20 minutos):**
+
+* **Atividade:** Desenhe um wireframe simples para um aplicativo móvel que resolva um problema cotidiano (ex: gerenciamento de tarefas, controle de gastos, gerenciamento de receitas). Anote as decisões de design e justifique as escolhas feitas baseadas em princípios de boa UI/UX.  Os alunos trabalharão individualmente nesta atividade.
+
+
+**Wrap-up (10 minutos):**
+
+* **Quiz:**  Responda às seguintes perguntas:
+    1. Qual elemento NÃO é crucial para uma boa UI? (a) Complexidade excessiva (b) Usabilidade intuitiva
+    2. Um bom design de UI prioriza: (a) A experiência do usuário (b) Somente a estética visual
+    3. Wireframes são importantes porque: (a) Facilitam a visualização e planejamento da estrutura de uma interface (b) São o produto final do processo de design
+
+**Homework Assignment:**
+
+* **Pesquisa e apresentação:** Pesquise e apresente um exemplo de um bom e um mau design de UI, justificando sua escolha com base nos critérios discutidos em sala de aula. Inclua screenshots e uma breve análise (máximo de uma página).
+
+
+**Observação:** Os tempos de cada atividade são sugestões e podem ser ajustados de acordo com a dinâmica da aula e o nível dos alunos.  O professor deve estar preparado para auxiliar os alunos durante as atividades práticas e responder a quaisquer dúvidas que possam surgir.

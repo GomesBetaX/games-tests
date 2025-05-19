@@ -10,13 +10,10 @@ TEMA_FONT = ("Roboto", 12)
 BG_COLOR = "#2E2E2E"
 FG_COLOR = "#FFFFFF"
 BTN_COLOR = "#007BFF"
+VERSION = 1.0
 
 gpt = ct.GPT()
 ppt = slide.Preencher()
-
-def get_class_type(selected_value):
-    ppt.type_class = selected_value.lower()
-    print(ppt.type_class)
 
 def informatica():
     if check_info.get() == 0:
@@ -53,7 +50,7 @@ window.title("Criador de Slides")
 window.config(padx=50, pady=20, bg=BG_COLOR)
 
 # Title Label
-title = ctk.CTkLabel(window, text="Criador de Slide", font=TITLE_FONT, pady=10, bg_color=BG_COLOR)
+title = ctk.CTkLabel(window, text=f"Criador de Slide - v{VERSION}", font=TITLE_FONT, pady=10, bg_color=BG_COLOR)
 title.grid(column=0, columnspan=3, row=0)
 
 # Tema and Entry
@@ -68,21 +65,14 @@ actv_label.grid(column=0, row=3, sticky="w")
 actv_entry = ctk.CTkTextbox(window, width=300, height=100)
 actv_entry.grid(column=0, columnspan=3, row=4, sticky="ew")
 
-
-
 # Dropdown
 opcao = ctk.StringVar(value="Esquema de cores: ")  # valor inicial
 
 dropdown = ctk.CTkOptionMenu(window, variable=opcao, values=["Energico", "Calma", "Neutro"], command=get_color)
 dropdown.grid(column=0, row=6, pady=10)
 
-opcao_aula = ctk.StringVar(value="Estilo de aula: ")  # valor inicial
-
-dropdown_aula = ctk.CTkOptionMenu(window, variable=opcao_aula, values=["Padrão", "Conversation"], command=get_color)
-dropdown_aula.grid(column=0, columnspan=3, row=7, pady=10, sticky="ew")
-
 # checkbox
-check = ctk.CTkCheckBox(window, text="Esqueleto da aula", bg_color=BG_COLOR, command=get_class_type)
+check = ctk.CTkCheckBox(window, text="Esqueleto da aula", bg_color=BG_COLOR, command=get_skeleton)
 check.grid(column=1, row=6)
 
 # checkbox
@@ -92,6 +82,10 @@ check_info.grid(column=2, row=6)
 # Button
 create_btn = ctk.CTkButton(window, text="Criar slide", command=create_class, font=("Arial", 12, "bold"), width=20)
 create_btn.grid(column=0, columnspan=3, row=8, pady=5, sticky="ew")
+
+# credits
+c_label = ctk.CTkLabel(window, text="Gomes ®", font=("Arial", 9), bg_color=BG_COLOR)
+c_label.grid(column=2, row=9)
 
 # Loop
 window.mainloop()

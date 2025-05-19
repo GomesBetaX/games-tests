@@ -1,0 +1,47 @@
+**Warm-up (5 minutos):**
+
+* Atividade: Liste 5 exemplos de interfaces de usuário que você usa diariamente.  (mesma do plano original)
+
+
+**Lead-in (10 minutos):**
+
+* Discussão:  Compartilhamento das listas do *warm-up*.  Perguntas instigadoras:  "Qual interface você achou mais fácil de usar?  Por quê?  Qual foi a mais frustrante?  O que a tornou frustrante?"  (Expande a atividade original, focando na experiência)
+
+
+**Presentation (15 minutos):**
+
+* Conceitos chave: Introdução aos princípios básicos de usabilidade (intuitividade, eficiência, memorabilidade, erros, satisfação).  Apresentação com slides mostrando exemplos concretos de boas e más interfaces (incluindo exemplos de aplicativos, sites e softwares).  Discussão sobre a importância da estética em conjunto com a usabilidade.  (Adiciona conteúdo teórico crucial)
+
+
+**Controlled Exercise (15 minutos):**
+
+* Atividade: Classifique as interfaces da sua lista do *warm-up* de acordo com a sua preferência de usabilidade (melhor para pior). Justifique sua escolha usando os princípios de usabilidade apresentados.  (Similar ao original, mas agora com base teórica)
+
+
+**Less-Controlled Exercises (15 minutos):**
+
+* Trabalho em pares: Compare suas classificações e justifique as diferenças de opinião com seu colega.  Qual critério de usabilidade foi mais importante na sua avaliação? (mesma do plano original)
+
+
+**Freer (10 minutos):**
+
+* Brainstorming:  Em grupos, listar 5 problemas comuns de usabilidade em interfaces digitais e possíveis soluções para cada um. (Nova atividade para estimular o pensamento crítico)
+
+
+**Production (20 minutos):**
+
+* Atividade: Crie um protótipo simples (desenho à mão ou digital) de uma interface para um aplicativo fictício. Considere a usabilidade e a estética na sua criação. Descreva, em um pequeno parágrafo, as escolhas de design que você fez e porquê. (mesmo do plano original)
+
+
+**Wrap-up (10 minutos):**
+
+* Quiz:  Responda as questões (mesmo do plano original)
+* Discussão:  Qual a importância de considerar a usabilidade e a estética no design de interfaces?  O que aprendemos hoje sobre UI/UX?
+
+
+**Homework Assignment:**
+
+* Pesquise e apresente um exemplo de boa UI e um exemplo de má UI, justificando suas escolhas com base nos conceitos discutidos em sala de aula e incluindo, para cada exemplo, uma análise de:  a) Intuitividade, b) Eficiência, c) Memorabilidade, d) Taxa de erro, e) Satisfação do usuário. (Expande a tarefa original, integrando os conceitos apresentados na aula).
+
+
+Este esqueleto fornece uma estrutura mais completa e organizada para a aula, integrando teoria e prática de forma mais equilibrada e progressiva.  A duração de cada seção é uma sugestão e pode ser ajustada de acordo com as necessidades da turma.

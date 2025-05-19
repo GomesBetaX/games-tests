@@ -1,9 +1,19 @@
 import comtypes.client
 import os
+import sys
 import re
 import json
 import creator
 from tkinter import messagebox
+
+def recurso_caminho(relative_path):
+    """Retorna o caminho absoluto para recursos dentro do .exe ou do projeto."""
+    try:
+        base_path = sys._MEIPASS  # Quando empacotado pelo PyInstaller
+    except AttributeError:
+        base_path = os.path.abspath(".")  # Durante execução normal
+    return os.path.join(base_path, relative_path)
+
 
 class Preencher():
     def __init__(self):
@@ -12,36 +22,39 @@ class Preencher():
         self.type_class = None
 
     def create_skeleton(self, nome, texto):
+        # Caminho absoluto para a pasta de saída
+        pasta_aulas = recurso_caminho("aulas")
+        os.makedirs(pasta_aulas, exist_ok=True)
+        caminho_txt = os.path.join(pasta_aulas, f"{nome}.txt")
+
         sket = creator.GPT()
         text = sket.get_skeleton(texto)
-        # print(text)
-        with open(f"aulas/{nome}.txt", "w") as file:
+        with open(caminho_txt, "w", encoding="utf-8") as file:
             file.write(text)
 
     def limpar(self, texto):
         return texto.replace("(", "").replace(")", "").replace("\n", " ").strip()
     
-    def preencher_template(self, classe, caminho_template=None, caminho_saida="aulas/aula_gerada.pptx"):
+    def preencher_template(self, classe, caminho_template=None, caminho_saida=None):
 
-        # print(classe)
-        caminho_template = self.template
+        caminho_template = self.template or "template"
+        caminho_template_pptx = recurso_caminho(f"{caminho_template}.pptx")
 
-        if caminho_template == None or caminho_template == "neutro":
-            caminho_template = "template"
+        if not os.path.exists(caminho_template_pptx):
+            raise FileNotFoundError(f"Arquivo de template não encontrado: {caminho_template_pptx}")
 
-        caminho_absoluto = os.path.abspath(f"{caminho_template}.pptx")
-        if not os.path.exists(caminho_absoluto):
-            raise FileNotFoundError(f"Arquivo de template não encontrado: {caminho_absoluto}")
+        # Caminho base para salvar o slide
+        pasta_aulas = recurso_caminho("aulas")
+        os.makedirs(pasta_aulas, exist_ok=True)
+
+        if caminho_saida is None:
+            caminho_saida = os.path.join(pasta_aulas, "aula_gerada.pptx")
 
         # Inicializa PowerPoint
         powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
-        # powerpoint.Visible = 0
-        presentation = powerpoint.Presentations.Open(caminho_absoluto, ReadOnly=1)
+        presentation = powerpoint.Presentations.Open(caminho_template_pptx, ReadOnly=1)
 
-        # Separa o conteúdo do wrap-up
         wrap_ups = self.parse_wrap_up(classe.get("wrap_up", ""))
-
-        # Dicionário base para substituição
         valores = {
             "{{warmup}}": self.limpar(classe.get("warm_up", "")),
             "{{question}}": self.limpar(classe.get("question", "")),
@@ -63,7 +76,6 @@ class Preencher():
             "{{homework}}": self.limpar(classe.get("homework", ""))
         }
 
-        # Substitui os placeholders nos slides
         for slide in presentation.Slides:
             for shape in slide.Shapes:
                 if shape.HasTextFrame and shape.TextFrame.HasText:
@@ -74,47 +86,35 @@ class Preencher():
                             texto = texto.replace(placeholder, valor)
                     shape.TextFrame.TextRange.Text = texto
 
-        # Salva e fecha
-        # Caminho base sem extensão
+        # Garantir nome único
         base_name = os.path.splitext(os.path.basename(caminho_saida))[0]
-        directory = os.path.dirname(os.path.abspath(caminho_saida))
         ext = ".pptx"
-
-        # Tenta encontrar um nome único
         i = 1
-        novo_nome = f"{base_name}{ext}"
-        txt_name = f"{base_name}"
-        novo_caminho = os.path.join(directory, novo_nome)
+        novo_caminho = caminho_saida
         while os.path.exists(novo_caminho):
-            novo_nome = f"{base_name}_{i}{ext}"
-            txt_name = f"{base_name}_{i}"
-            novo_caminho = os.path.join(directory, novo_nome)
+            novo_caminho = os.path.join(pasta_aulas, f"{base_name}_{i}{ext}")
             i += 1
-        messagebox.showinfo(title="Confirmação", message=f"✅ Slide gerado em: {caminho_saida}")
+        txt_name = os.path.splitext(os.path.basename(novo_caminho))[0]
 
-        # criar skeleton
-        if not self.skeleton == 0:
-            print(f"aula criada: {classe}")
+        messagebox.showinfo(title="Confirmação", message=f"✅ Slide gerado em: {novo_caminho}")
+
+        if self.skeleton != 0:
+            print(f"Aula criada: {classe}")
             self.create_skeleton(txt_name, classe)
             messagebox.showinfo(title="Confirmação", message=f"✅ Esqueleto da aula gerado em: {txt_name}.txt")
+
+        os.startfile(os.path.dirname(novo_caminho))
 
         presentation.SaveAs(novo_caminho)
         presentation.Close()
         powerpoint.Quit()
 
-
-
     def parse_wrap_up(self, texto):
-        """
-        Extrai JSON do wrap-up mesmo que esteja embutido em outro texto.
-        """
         resultado = {}
         try:
             match = re.search(r"\[\s*{.*?}\s*\]", texto, re.DOTALL)
             if match:
                 perguntas = json.loads(match.group(0))
-                # print("Perguntas carregadas do JSON:", perguntas)
-
                 if len(perguntas) >= 3:
                     resultado["actv1"] = perguntas[0]["pergunta"]
                     resultado["opt1_correct"] = perguntas[0]["a"]
@@ -131,7 +131,5 @@ class Preencher():
                 print("❌ Nenhum JSON encontrado no texto.")
         except json.JSONDecodeError as e:
             print("❌ Erro ao decodificar o JSON do wrap-up:", e)
-
-        # print("✅ Resultado do parse_wrap_up (corrigido):", resultado)
         return resultado
 
